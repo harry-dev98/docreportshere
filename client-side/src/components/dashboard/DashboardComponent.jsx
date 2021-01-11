@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Dashboard = (props) => (
-    <div>Dashboard</div>
+    <div>Add Case, list of cases, list of doc, </div>
 );
 
 export default Dashboard;
