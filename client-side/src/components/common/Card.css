@@ -1,0 +1,27 @@
+.container {
+    display: flex;
+    flex:1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    place-content: center;
+};
+.card {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    margin: 10px;
+}
+.cardBtn {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    margin: 10px;
+    padding: 10vh;
+    height: 25vh;
+    width: 15vw;
+    color: #042F19;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 20px;
+    box-shadow: 4px 4px 6px -1px #042F19;
+}

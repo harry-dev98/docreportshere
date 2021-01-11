@@ -1,36 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
-const styles = {
-    popup: {
-        position: 'absolute',
-        top: '15vh',
-        width: '70vw',
-        height: '70vh',
-        backgroundColor: 'white',
-        borderRadius: 20,
-        boxShadow: "6px 6px 8px -2px #262626",
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    formDiv: {
-        display: 'flex',
-        flex: 1,
-        flexDirection: 'column',
-        placeContent: 'center',
-    },
-    form: {
-        placeContent: 'center',
-        padding: 15,
-    },
-    formItem: {
-        display: 'flex',
-        flex:1, 
-        justifySelf: 'center',
-        padding: 10,
-        margin: 15,
-    }
-
-}
+import './Form.css'
 
 export default function Form(props){
     const [lists, setLists] = useState([]);
@@ -71,14 +40,14 @@ export default function Form(props){
     return (
         <>
             { (props.open)?
-                <div style={styles.popup}>
-                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+                <div className="popup">
+                    <div className="popup-heading">
                         <h3 style={{color: '#042F19'}}>{props.which}</h3>
                     </div>
-                    <div style={styles.formDiv}>
-                    <form style={styles.form} onSubmit={submitForm}>
+                    <div className="formDiv">
+                    <form className="form" onSubmit={submitForm}>
                         {lists.map((item, index)=>(
-                            <div key={index} style={styles.formItem}>
+                            <div key={index} className="formItem">
                                 <label
                                     title={item.name}
                                     aria-label={item.name} 
@@ -97,7 +66,8 @@ export default function Form(props){
                                 />
                             </div>
                         ))}
-                        <div style={{...styles.formItem, justifyContent: 'space-evenly'}}>
+                        {props.customFormInput && {...props.customFormInput}}
+                        <div className="formItem" style={{justifyContent: 'space-evenly'}}>
                             <input type='submit' value="Submit" title="Click to submit form" aria-label="submit form" onClick={submitForm}/>
                             <input type='button' value="Close" title="Click to close form" aria-label="close form" onClick={()=>props.closePopup({submit: false})}/>
                         </div>
