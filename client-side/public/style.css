@@ -1,0 +1,17 @@
+.text, .bold-text {
+    padding: 10px 0;
+}
+.bold-text {
+    font-weight: bolder;
+    font-size: larger;
+    color: #042F19;
+}
+.text {
+    color: #042F19;
+    font-size: medium;
+    font-weight: 600;
+}
+.text-center {
+    width: 100%;
+    text-align: center;
+}
