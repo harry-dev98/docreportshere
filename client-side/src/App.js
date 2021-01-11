@@ -6,6 +6,7 @@ import store from './store'
 import {
   Nav,
   Dashboard,
+  Login,
 } from './components';
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
       <Router>
         <Nav />  
         <Switch>
-          <Route path="/" component={Dashboard} />
+          <Route path="/" exact component={Dashboard} />
+          <Route path="/login" exact component={Login} />
         </Switch>
       </Router>
     </Provider>
