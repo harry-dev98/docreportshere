@@ -9,25 +9,10 @@ import {
 import { ChatList, ChatBox } from './ChatComponent';
 class Chat extends Component{
     render(){
-        const userList = [
-            {
-                id: '1',
-                name: 'testuser1',
-                online: true,
-                domain: ['ENT', ],
-                avatar: '',
-            },
-            {
-                id: '2',
-                name : 'testuser2',
-                online: false,
-                domain: ['Skin', ],
-                avatar: '',
-            },
-        ];
+        
         return (
             <div className="chat-container">
-                <ChatList {...{userList}} openChat={this.props.newChatBox} />
+                <ChatList chatList={this.props.patientList} openChat={this.props.newChatBox} />
                 {Object.entries(this.props.activeChats).map(([key, item]) => (
                     <ChatBox key={key} chatInfo={item} />
                 ))}
@@ -36,8 +21,9 @@ class Chat extends Component{
     }
 }
 
-const mapState = ({ chatState }) => ({
+const mapState = ({ chatState, patientState }) => ({
     activeChats: chatState.activeChats,
+    patientList: patientState.patients,
 });
 const mapDispatch = (dispatch) => ({
     newChatBox: (data)=>dispatch(openNewChatBox(data)),

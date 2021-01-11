@@ -16,7 +16,7 @@ const ChatHeader = ({ name, online, avatar, onClick, onCross }) => (
     </div>
 )
 
-const ChatList = ({ userList, openChat }) => {
+const ChatList = ({ chatList, openChat }) => {
     const [active, setActive] = useState(false);
 
     const ChatLabel = () => (
@@ -25,7 +25,7 @@ const ChatList = ({ userList, openChat }) => {
     return (
         <div className={"chat-list-container"+(active?' active':'')} onBlur={()=>setActive(false)}>
             {active && <div className="chat-list">
-            {userList.map((item) => (
+            {chatList.map((item) => (
                 <ChatHeader key={item.id} {...item} onClick={()=>openChat(item)} />    
                 ))}
             </div>}

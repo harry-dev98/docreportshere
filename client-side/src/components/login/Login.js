@@ -64,12 +64,14 @@ export default function Logout(){
             title: 'Login to your account', 
             label: 'Login', 
             onclick: ()=>{formPopup("login")},
-            haspopup: true},
+            haspopup: true
+        },
         {
             title: 'Register your self on platform',
             label: 'Register', 
             onclick: ()=>{formPopup("register")},
-            haspopup: true},
+            haspopup: true
+        },
     ];
 
     return (

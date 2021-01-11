@@ -6,6 +6,8 @@ const TOGGLECHAT = "chat/toggle";
 const NEWCHAT = "chat/new";
 const DELCHAT = "chat/del";
 
+const CURRPATIENT = "patient/curr";
+const SETPATIENT = "patient/set";
 
 export {
     LOGIN,
@@ -14,4 +16,6 @@ export {
     TOGGLECHAT,
     NEWCHAT,
     DELCHAT,
+    CURRPATIENT,
+    SETPATIENT,
 }

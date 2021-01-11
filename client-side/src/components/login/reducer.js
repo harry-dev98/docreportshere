@@ -5,7 +5,7 @@ import {
 } from '../../actionTypes';
 
 const initalUserState = {
-    isLoggedIn: false,
+    isLoggedIn: true,
     userData: {},
 };
 
