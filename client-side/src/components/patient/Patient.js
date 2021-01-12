@@ -11,16 +11,17 @@ class Patient extends Component{
     }
     render(){
         return (
-            <>
+            <div className="patient-container">
                 <List list={this.props.list} onClick={(data) => this.setState({activePatient: data})} />
-                <PatientData patient={this.state.activePatient}/>
-            </>
+                <PatientData patient={this.state.activePatient} doctors={this.props.doctors} />
+            </div>
         );
     }
 }
 
-const mapState = ( { patientState } ) => ({
+const mapState = ( { patientState, doctorState } ) => ({
     list: patientState.patients,
+    doctors: doctorState.doctors,
 });
 
 const mapDispatch = ( dispatch ) => ({

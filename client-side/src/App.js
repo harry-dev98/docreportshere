@@ -7,6 +7,8 @@ import {
   Nav,
   Dashboard,
   Login,
+  Doctor,
+  Patient,
 } from './components';
 
 function App() {
@@ -17,6 +19,9 @@ function App() {
         <Switch>
           <Route path="/" exact component={Dashboard} />
           <Route path="/login" exact component={Login} />
+          <Route path="/patients" exact component={Patient} />
+          <Route path="/doctor" exact component={Doctor} />
+          
         </Switch>
       </Router>
     </Provider>

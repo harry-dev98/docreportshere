@@ -4,9 +4,15 @@
     height: 100vh;
 }
 
-.text, .bold-text {
-    padding: 10px 0;
+.text, .bold-text, .light-text {
+    padding: 5px 0;
 }
+.light-text {
+    font-weight: 300;
+    font-size: small;
+    color: #7f7e7e; 
+}   
+
 .bold-text {
     font-weight: bolder;
     font-size: larger;

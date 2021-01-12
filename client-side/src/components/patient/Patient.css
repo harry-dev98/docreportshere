@@ -1,0 +1,86 @@
+.patient-container {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    place-content: center;
+    margin: 10px;
+}
+.patient-container>*{
+    display: flex;
+    box-shadow: 4px 4px 6px -1px #042F19;
+    background-color: #EFEFEF;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.list-container {
+    width: 15vw;
+    align-items: center;
+    height: 80vh;
+    overflow: auto;
+    padding: 10px;
+}
+.list-row {
+    padding: 10px;
+    border-bottom: 2px solid #042F19;
+}
+
+.detail-container {
+    width: 30vw;
+}
+.detail-items {
+    padding: 20px;
+    
+}
+.detail-item-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+.scans {
+    width: 30vw;
+    height: 80vh;
+    overflow: auto;
+    padding: 10px;
+}
+
+.scan {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.scan-upload {
+    height: 30vh;
+    display: flex;
+    overflow: auto;
+}
+
+.scan-img>img {
+    height: 20vh;
+    width: 20vh;
+    border: 1px solid #042F19;
+}
+
+.logo-img {
+    height: 5vh;
+    width: 5vh;
+    padding: 5px 10px;
+}
+
+#assign-doc {
+    width: 10vw;
+    padding: 5px;
+    margin: 5px;
+}
+.assign, .add-scan {
+    padding: 10px;
+    justify-content: center;
+    display: flex;
+}
+.scan {
+    margin: 5px;
+}

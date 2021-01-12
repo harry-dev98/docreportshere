@@ -9,6 +9,7 @@ const DELCHAT = "chat/del";
 const CURRPATIENT = "patient/curr";
 const SETPATIENT = "patient/set";
 
+const SETDOCTOR = "doctor/set";
 export {
     LOGIN,
     LOGOUT,
@@ -18,4 +19,5 @@ export {
     DELCHAT,
     CURRPATIENT,
     SETPATIENT,
+    SETDOCTOR,
 }
