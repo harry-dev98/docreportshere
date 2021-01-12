@@ -9,7 +9,6 @@ const initalState = {
             name: 'testuser1',
             gender: 'male',
             age: 35,
-            online: true,
             domain: ['ENT', ],
             isAssigned: true,
             doctorData: {
