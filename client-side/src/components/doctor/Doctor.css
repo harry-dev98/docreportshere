@@ -1,0 +1,37 @@
+.doctor-list {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    margin-left: 10vw;
+    margin-top: 10px;
+    text-align: center;
+    height: 80vh;
+    overflow: auto;
+    background-color: #EFEFEF;
+    box-shadow: 4px 4px 6px -1px #042F19;
+}
+.doctor-list-item {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #042F19;
+    height:6vh;
+}
+
+.triangle {
+    position: absolute;
+    left: 60vw;
+    width: 0; 
+    height: 0; 
+    border-top: 3vw solid transparent;
+    border-bottom: 3vw solid transparent; 
+
+    border-right:3vw solid #EFEFEF; 
+}
+.doctor-info {
+    height: 50vh;
+    width: 30vw;
+    background-color: #EFEFEF;
+    position: absolute;
+    left: 63vw;
+}
