@@ -46,3 +46,17 @@ class Scan(models.Model):
 
     def __str__(self):
         return self.patient.name + "_scan_"+str(self.id)
+
+
+class Chat(models.Model):
+    message = models.TextField()
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    sender = models.CharField(max_length=10, null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now=True)
+    isNotification = models.BooleanField(default=False)
+
+    def __str__(self):
+        if self.isNotification:
+            return "notfication_from_"+self.sender
+        else:
+            return "msg_from_"+self.sender

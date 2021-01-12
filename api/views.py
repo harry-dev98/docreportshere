@@ -129,3 +129,24 @@ def assignDoctor(request):
         return Response({"message":"no such doctor", "error": True}, status=HTTP_204_NO_CONTENT)
     
 
+@csrf_exempt
+@api_view(["POST",])
+@permission_classes((IsAuthenticated, ))
+def newMessage(request):
+    user = request.user
+    serialized = ChatSerializer(data=request.data)
+    if serialized.is_valid():
+        serialized.save()
+        return Response({"message": "success"}, status=HTTP_201_CREATED)
+
+    return Response({"message": serialized.errors, "error": True}, status=HTTP_400_BAD_REQUEST)
+
+
+@csrf_exempt
+@api_view(["GET",])
+@permission_classes((IsAuthenticated, ))
+def getChat(request):
+    patient = request.data["patient"]
+    chat = Chat.objects.filter(patient_id=patient)
+    serialized = ChatSerializer(chat, many=True)
+    return Response(serialized.data, status=HTTP_200_OK)

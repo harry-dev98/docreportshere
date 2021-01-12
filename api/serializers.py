@@ -43,3 +43,9 @@ class ScansSerializer(serializers.ModelSerializer):
         model = Scan
         fields = '__all__'
 
+
+class ChatSerializer(serializers.ModelSerializer):
+        
+    class Meta:
+        model = Chat
+        fields = '__all__'

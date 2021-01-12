@@ -11,4 +11,7 @@ urlpatterns = [
     path('addscan/', addScan),
     path('addreport/', addReport),
     path('assigndoctor/', assignDoctor),
+    path('newmessage/', newMessage),
+    path('messages/', getChat),
+
 ]
