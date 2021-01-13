@@ -13,5 +13,6 @@ urlpatterns = [
     path('assigndoctor/', assignDoctor),
     path('newmessage/', newMessage),
     path('messages/', getChat),
+    path('notifications/', getNotification),
 
 ]
