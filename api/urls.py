@@ -14,5 +14,5 @@ urlpatterns = [
     path('newmessage/', newMessage),
     path('messages/', getChat),
     path('notifications/', getNotification),
-
+    path('validatedoctor/', validateDoctor)
 ]

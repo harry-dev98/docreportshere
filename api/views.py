@@ -54,6 +54,7 @@ def login(request):
         token, _ = Token.objects.get_or_create(user=user)
         return Response({"token": token.key, "auth": True}, status=HTTP_201_CREATED)
     else:
+        logout()
         return Response({"message": "no user", "error": True})
 
 
@@ -117,7 +118,7 @@ def addReport(request):
         return Response({"message":"no such scan", "error": True}, status=HTTP_204_NO_CONTENT)
 
 @csrf_exempt
-@api_view(["POST",])
+@api_view(["PUT",])
 @permission_classes((IsAuthenticated, ))
 def assignDoctor(request):
     doctor = request.data['doctor']
@@ -170,3 +171,19 @@ def getNotification(request):
 
     serialized = ChatSerializer(notif, many=True)
     return Response(serialized.data, status=HTTP_200_OK)
+
+
+@csrf_exempt
+@api_view(["PUT",])
+@permission_classes((IsAuthenticated, ))
+def validateDoctor(request):
+    doctor = request.data['doctor']
+    try:
+        doctor = Doctor.objects.get(id=doctor)
+        doctor.isApproved = True
+        doctor.save()    
+        return Response({"message": "success"}, status=HTTP_201_CREATED)
+    
+    except Doctor.DoesNotExist as err:
+        return Response({"message":"no such doctor", "error": True}, status=HTTP_204_NO_CONTENT)
+   
