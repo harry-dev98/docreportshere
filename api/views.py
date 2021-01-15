@@ -47,15 +47,16 @@ def doctorSignUp(request):
 def login(request):
     username = request.data["username"]
     password = request.data["password"]
+    print(request.data)
     user = authenticate(username=username, password=password)
     if (user.is_staff and request.data['is_hospital']) or (not user.is_staff and not request.data['is_hospital']):
         if user == None:
-            return Response({"message": "no user", "error": True})
+            return Response({"message": "no user", "error": True}, status=HTTP_400_BAD_REQUEST)
         token, _ = Token.objects.get_or_create(user=user)
         return Response({"token": token.key, "auth": True}, status=HTTP_201_CREATED)
     else:
-        logout()
-        return Response({"message": "no user", "error": True})
+        logout(request)
+        return Response({"message": "no user", "error": True}, status=HTTP_400_BAD_REQUEST)
 
 
 @csrf_exempt
@@ -76,6 +77,8 @@ def getPatients(request):
     for patient in allPatients:
         tempData = dict(PatientSerializer(patient).data)
         tempData['scans'] = list(ScansSerializer(patient.scans.all(), many=True).data)
+        if(tempData['isAssigned']):
+            tempData['doctor'] = dict(DoctorSerializer(Doctor.objects.get(id=tempData['doctor'])).data)
         data.append(tempData)
 
     return Response(data, status=HTTP_200_OK)
@@ -90,6 +93,7 @@ def addPatient(request):
     if serialized.is_valid():
         serialized.save()
         return Response({"message": "success"}, status=HTTP_201_CREATED)
+    print(serialized.errors)
     return Response({"message": serialized.errors, "error": True}, status=HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
