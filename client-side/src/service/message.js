@@ -9,7 +9,7 @@ const newMessageAPI = (data, token)=>{
 
 const getMessagesAPI = (patient, token) => getFetcher(`messages/?patient=${patient}`, token);
 
-const getNotificationsAPI = (sender, token) => getFetcher(`notifications/?sender=${sender}`, token);
+const getNotificationsAPI = (token) => getFetcher(`notifications/`, token);
 
 export {
     newMessageAPI,

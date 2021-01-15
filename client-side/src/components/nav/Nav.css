@@ -44,5 +44,16 @@
     background-color: #fff;
     box-shadow: 0 2px 5px -1px #042F19;
     background-color: #EFEFEF;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    font-size: medium;
+    padding: 10px;
+    z-index: 99;
+}
+
+.notif-item {
+    padding: 10px 0px;
+    border-bottom: 1px solid black;
 }
 

@@ -2,6 +2,7 @@ import {
     TOGGLECHAT,
     NEWCHAT,
     DELCHAT,
+    SETNOTIFICATIONS,
 } from '../../actionTypes';
 
 const toggleChatBox = ( id ) => {
@@ -34,8 +35,14 @@ const deleteChatBox = ( id ) => {
     }
 }
 
+const setNotifications = (data) => ({
+    type: SETNOTIFICATIONS,
+    payload: data,
+});
+
 export {
     toggleChatBox,
     openNewChatBox,
     deleteChatBox,
+    setNotifications,
 }

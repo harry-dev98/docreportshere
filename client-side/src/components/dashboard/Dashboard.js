@@ -15,12 +15,15 @@ import {
     addPatientAPI,
     getPatientsAPI,
     getDoctorsAPI,
+    getNotificationsAPI,
 } from '../../service/api';
 
 import {
     setPatients,
     setDoctors,
+    setNotifications,
 } from './action';
+import { combineReducers } from 'redux';
 
 const Dashboard = (props) => {
     const history = useHistory();
@@ -48,7 +51,7 @@ const Dashboard = (props) => {
             haspopup: true,
         },
         {
-            title: 'List of all cases',
+            title: 'List of all patients',
             label: 'All Patients',
             onclick: () => {history.push('/patients')},
             haspopup: false,
@@ -61,8 +64,8 @@ const Dashboard = (props) => {
         }
     ]:[
         {
-            title: 'List of all cases',
-            label: 'All Patients',
+            title: 'List of all patients',
+            label: 'Patients',
             onclick: () => {history.push('/patients')},
             haspopup: false,
         },  
@@ -70,16 +73,16 @@ const Dashboard = (props) => {
 
     useEffect(()=>{
         getPatientsAPI(token)
-        .then((data)=>{
-            console.log("patient", data);
-            dispatch(setPatients(data));
-        })
+        .then((data)=>dispatch(setPatients(data)))
         .catch((error) => console.log(error));
+        
+        getNotificationsAPI(token)
+        .then((data)=>dispatch(setNotifications(data)))
+        .catch((error)=>console.log("error: ", error));
+
         if(is_hospital){
             getDoctorsAPI(token)
-            .then((data) => {
-                dispatch(setDoctors(data));
-            })
+            .then((data) => dispatch(setDoctors(data)))
             .catch((error) => console.log(error))
         }
     }, [])

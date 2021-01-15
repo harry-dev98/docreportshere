@@ -2,11 +2,13 @@ import {
     TOGGLECHAT,
     NEWCHAT,
     DELCHAT,
+    SETNOTIFICATIONS,
 } from '../../actionTypes';
 
 const initialState = {
     activeChats: {},
     openChats: {},
+    notifications: [],
 }
 
 const reducer = (state=initialState, action) => {
@@ -42,6 +44,11 @@ const reducer = (state=initialState, action) => {
                 openChats: {
                     ...state.openChats,
                 },
+            }
+        case SETNOTIFICATIONS:
+            return {
+                ...state,
+                notifications: action.payload,
             }
         default:
             return state;

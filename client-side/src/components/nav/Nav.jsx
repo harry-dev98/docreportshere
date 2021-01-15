@@ -6,6 +6,7 @@ import './Nav.css';
 
 const Nav = (props) => {
     const [showNotif, setNotif] = useState(false); 
+    const notifs = useSelector((state)=>state.chatState.notifications)
     const is_hospital = useSelector((state)=>state.userState.is_hospital);
     const isLoggedIn = useSelector((state)=>state.userState.isLoggedIn);
     return (
@@ -22,7 +23,11 @@ const Nav = (props) => {
                 <div className="nav-link-item">
                     <i className="fa fa-bell" style={{fontSize: 24, padding: 20}} onClick={()=>setNotif(!showNotif)}>
                         {showNotif && (
-                            <div className="notif-container"></div>
+                            <div className="notif-container">
+                                {notifs.map((notif)=>(
+                                    <div className="notif-item" key={notif.id}>{notif.message}</div>
+                                ))}
+                            </div>
                         )}
                     </i>    
                 </div>

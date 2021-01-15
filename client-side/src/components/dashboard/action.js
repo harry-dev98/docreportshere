@@ -4,8 +4,12 @@ import {
 import {
     setPatients
 } from '../patient/action';
+import {
+    setNotifications
+} from '../chat/action';
 
 export {
     setPatients,
     setDoctors,
+    setNotifications,
 }

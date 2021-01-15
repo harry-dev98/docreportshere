@@ -170,13 +170,11 @@ def getChat(request):
 @api_view(["GET",])
 @permission_classes((IsAuthenticated, ))
 def getNotification(request):
-    sender = request.query_params["sender"]
     user = request.user
     if user.is_staff:
-        notif = Chat.objects.filter(sender=sender, isNotification=True)
+        notif = Chat.objects.filter(sender="doctor", isNotification=True)
     else:
-        print(user.id)
-        notif = Chat.objects.filter(sender=sender, isNotification=True, patient__doctor__user__id=user.id)
+        notif = Chat.objects.filter(sender="hospital", isNotification=True, patient__doctor__user__id=user.id)
 
     serialized = ChatSerializer(notif, many=True)
     return Response(serialized.data, status=HTTP_200_OK)
