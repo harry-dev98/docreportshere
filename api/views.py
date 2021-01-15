@@ -92,7 +92,7 @@ def addPatient(request):
     serialized = PatientSerializer(data=request.data)
     if serialized.is_valid():
         serialized.save()
-        return Response({"message": "success"}, status=HTTP_201_CREATED)
+        return Response(serialized.data, status=HTTP_201_CREATED)
     print(serialized.errors)
     return Response({"message": serialized.errors, "error": True}, status=HTTP_400_BAD_REQUEST)
 
@@ -103,7 +103,8 @@ def addScan(request):
     serialized = ScansSerializer(data=request.data)
     if serialized.is_valid():
         serialized.save()
-        return Response({"message": "success"}, status=HTTP_201_CREATED)
+        return Response(serialized.data, status=HTTP_201_CREATED)
+    print(serialized.errors)
     return Response({"message": serialized.errors, "error": True}, status=HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
@@ -122,9 +123,10 @@ def addReport(request):
         return Response({"message":"no such scan", "error": True}, status=HTTP_204_NO_CONTENT)
 
 @csrf_exempt
-@api_view(["PUT",])
+@api_view(["POST",])
 @permission_classes((IsAuthenticated, ))
 def assignDoctor(request):
+    print(request.data)
     doctor = request.data['doctor']
     patient = request.data['patient']
     try:
@@ -147,7 +149,7 @@ def newMessage(request):
     serialized = ChatSerializer(data=request.data)
     if serialized.is_valid():
         serialized.save()
-        return Response({"message": "success"}, status=HTTP_201_CREATED)
+        return Response(serialized.data, status=HTTP_201_CREATED)
 
     return Response({"message": serialized.errors, "error": True}, status=HTTP_400_BAD_REQUEST)
 
@@ -178,7 +180,7 @@ def getNotification(request):
 
 
 @csrf_exempt
-@api_view(["PUT",])
+@api_view(["POST",])
 @permission_classes((IsAuthenticated, ))
 def validateDoctor(request):
     doctor = request.data['doctor']
