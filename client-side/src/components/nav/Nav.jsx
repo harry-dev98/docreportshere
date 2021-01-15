@@ -27,7 +27,7 @@ const Nav = (props) => {
                     </Link> 
                 </div>
                 <div className="nav-link-item">
-                    <Link style={{textDecoration: 'none'}} to="/">
+                    <Link style={{textDecoration: 'none'}} to="/login">
                         <p className="nav-text">Logout</p>
                     </Link> 
                 </div>

@@ -13,9 +13,14 @@ import {
 } from './action';
 
 import {
-    loginform ,
-    registrationform
+    loginForm ,
+    registrationForm
 } from '../../utils/formdata';
+
+import {
+    loginAPI,
+    signupAPI,
+} from "../../service/api";
 
 export default function Logout(){
     const history = useHistory();
@@ -41,20 +46,36 @@ export default function Logout(){
 
     const closePopup = ({submit, form}) => {
         if(submit){
-            console.log(form.role)
-            dispatch(login({user: 'demo', isAdmin: form.role }));
-            
+            if(which === "login"){
+                loginAPI(form)
+                .then((data)=>{
+                    dispatch(login(data));
+                    history.push('/');
+                })
+                .catch((error)=>{
+                    console.log(error);
+                    dispatch(logout);
+                    setOpen(false);
+                })
+            } else if(which === "register"){
+                signupAPI(form)
+                .then((data)=>{
+                    setOpen(false);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            }            
         }
         setOpen(false);
-        history.push('/');
     }   
 
     const formPopup = (which)=>{
         if(which === "login"){
-            setForm(loginform);
+            setForm(loginForm);
             setWhich("Login");
         } else {
-            setForm(registrationform);
+            setForm(registrationForm);
             setWhich("Registration");
         }
     }

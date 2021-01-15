@@ -10,7 +10,6 @@ export default function Form(props){
     }, [props.formItems])
 
     const addInputRef = (ref, name)=>{
-        console.log(ref);
         refs = {
             ...refs,
             [name]: ref,
