@@ -1,7 +1,7 @@
 from rest_framework.serializers import Serializer
 from db.models import *
 from .serializers import *
-from django.contrib.auth import authenticate # to manually authenticate user
+from django.contrib.auth import authenticate, logout # to manually authenticate & logout user
 from django.views.decorators.csrf import csrf_exempt # to use POST req without csrf
 from rest_framework.authtoken.models import Token # generates/ get token for authenticated user
 from rest_framework.decorators import api_view, permission_classes # some usefull decorators
@@ -48,10 +48,14 @@ def login(request):
     username = request.data["username"]
     password = request.data["password"]
     user = authenticate(username=username, password=password)
-    if user == None:
+    if (user.is_staff and request.data['is_hospital']) or (not user.is_staff and not request.data['is_hospital']):
+        if user == None:
+            return Response({"message": "no user", "error": True})
+        token, _ = Token.objects.get_or_create(user=user)
+        return Response({"token": token.key, "auth": True}, status=HTTP_201_CREATED)
+    else:
         return Response({"message": "no user", "error": True})
-    token, _ = Token.objects.get_or_create(user=user)
-    return Response({"token": token.key, "auth": True}, status=HTTP_201_CREATED)
+
 
 @csrf_exempt
 @api_view(["GET",])
