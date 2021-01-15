@@ -26,6 +26,7 @@ const Dashboard = (props) => {
     const history = useHistory();
     const dispatch = useDispatch();
     const isLoggedIn = useSelector((state)=>state.userState.isLoggedIn);
+    const is_hospital = useSelector((state)=>state.userState.is_hospital);
     const token = useSelector((state)=>state.userState.token)
     const [ open, setOpen ] = useState(false);
     const form = addPatientForm;
@@ -39,7 +40,7 @@ const Dashboard = (props) => {
         }
     }
     if(!isLoggedIn)history.push('/login');
-    const list = [
+    const list = is_hospital? [
         {
             title: 'Add new patient',
             label: 'Add Patient',
@@ -58,6 +59,13 @@ const Dashboard = (props) => {
             onclick: () => {history.push('/doctors')},
             haspopup: false,
         }
+    ]:[
+        {
+            title: 'List of all cases',
+            label: 'All Patients',
+            onclick: () => {history.push('/patients')},
+            haspopup: false,
+        },  
     ];
 
     useEffect(()=>{
@@ -67,11 +75,13 @@ const Dashboard = (props) => {
             dispatch(setPatients(data));
         })
         .catch((error) => console.log(error));
-        getDoctorsAPI(token)
-        .then((data) => {
-            dispatch(setDoctors(data));
-        })
-        .catch((error) => console.log(error))
+        if(is_hospital){
+            getDoctorsAPI(token)
+            .then((data) => {
+                dispatch(setDoctors(data));
+            })
+            .catch((error) => console.log(error))
+        }
     }, [])
     return (
         <>

@@ -7,6 +7,7 @@ import './Nav.css';
 const Nav = (props) => {
     const [showNotif, setNotif] = useState(false); 
     const is_hospital = useSelector((state)=>state.userState.is_hospital);
+    const isLoggedIn = useSelector((state)=>state.userState.isLoggedIn);
     return (
         <div className="nav-bar">
             <div className="brand">
@@ -27,7 +28,7 @@ const Nav = (props) => {
                 </div>
                 <div className="nav-link-item">
                     <Link style={{textDecoration: 'none'}} to="/">
-                        <p className="nav-text">{is_hospital?"Hospital":"Doctor"}</p>
+                        <p className="nav-text">{isLoggedIn && (is_hospital?"Hospital":"Doctor")}</p>
                     </Link> 
                 </div>
                 <div className="nav-link-item">

@@ -5,6 +5,7 @@ import HOST from '../../service/config';
 import {
     addScanAPI,
     assignDoctorAPI,
+    addReportAPI,
 } from '../../service/api';
 
 import './Patient.css';
@@ -20,7 +21,7 @@ const List = ({ list, onClick }) => (
     </div>
 );
 
-const Details = ({ token, patient, doctors }) => {
+const Details = ({ token, is_hospital, patient, doctors }) => {
     const patientData = [
         ["Name", patient.name], 
         ["Age", patient.age],
@@ -53,7 +54,7 @@ const Details = ({ token, patient, doctors }) => {
                     </div>
                 ))}
             </div>
-            <div className="assign">
+            {is_hospital && <><div className="assign">
                 {patient.isAssigned && <h5>This case is assigned to doctor {patient.doctor.name}.</h5>}
                 {!patient.isAssigned&&
                 <><h5>Assign Doctor to the case.</h5>
@@ -82,24 +83,38 @@ const Details = ({ token, patient, doctors }) => {
                 ))}
             </div>
             {imgs.length!==0 && <button className="upload-btn" onClick={uploadScans}>Upload</button>}
-            {uploading && <h5>Uploading</h5>}
+            {uploading && <h5>Uploading</h5>}</>}
         </div>
     );
 }
 
-const Reports = ({ scans }) => {
-    console.log(scans);
+const Reports = ({ scans, token, is_hospital }) => {
+    const inputRef = useRef();
+    const addReport = (id)=>{
+        let data = {
+            scan: id,
+            report: inputRef.current.value,
+        };
+        addReportAPI(data, token)
+        .then((data)=>console.log(data))
+        .catch((error)=>console.log(error))
+    };
     return (
         <div className="scans">
             {scans.length === 0 && <h5>No Scans available</h5>}
-            {scans.map((item, idx) => (
-                <div className="scan" key={idx}>
+            {scans.map((item) => (
+                <div className="scan" key={item.id}>
                     <div className="scan-img">
                         <img src={HOST + item.src}/>    
                     </div>
                     <div className="scan-data">
                         <div className="light-text">Scanned on: {item.date}</div>
                         {item.isReported &&<div className="text">{item.report}</div>}
+                        {!is_hospital && !item.isReported && 
+                        <div className="input-report">
+                            <input ref={inputRef} type="text" name="report" id="input-report"/>
+                            <i className="fa fa-check" onClick={()=>{addReport(item.id)}} />
+                        </div>}
                     </div>
                 </div>
             ))}
@@ -108,10 +123,10 @@ const Reports = ({ scans }) => {
     );
 };
 
-const PatientData = ({ token, patient, doctors }) => (
+const PatientData = ({ token, is_hospital, patient, doctors }) => (
     <>
-        <Details {...{token, patient, doctors}} />
-        <Reports scans={patient.scans} />
+        <Details {...{token, is_hospital, patient, doctors}} />
+        <Reports scans={patient.scans} {...{token, is_hospital}} />
     </>
 )
 

@@ -17,7 +17,7 @@ class Patient extends Component{
         return (
             <div className="patient-container">
                 <List list={this.props.list} onClick={(data) => this.setState({activePatient: data})} />
-                <PatientData token={this.props.token} patient={this.state.activePatient} doctors={this.props.doctors} />
+                <PatientData token={this.props.token} is_hospital={this.props.is_hospital} patient={this.state.activePatient} doctors={this.props.doctors || []} />
             </div>
         );
     }
@@ -27,6 +27,7 @@ const mapState = ( { userState, patientState, doctorState } ) => ({
     list: patientState.patients,
     doctors: doctorState.doctors.filter((doctor)=>doctor.isApproved),
     isLoggedIn: userState.isLoggedIn,
+    is_hospital: userState.is_hospital,
     token: userState.token,
 });
 

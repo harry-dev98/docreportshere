@@ -1,4 +1,3 @@
-from rest_framework.serializers import Serializer
 from db.models import *
 from .serializers import *
 from django.contrib.auth import authenticate, logout # to manually authenticate & logout user
@@ -72,7 +71,11 @@ def getDoctors(request):
 @api_view(["GET",])
 @permission_classes((IsAuthenticated, ))
 def getPatients(request):
-    allPatients = Patient.objects.all()
+    user = request.user
+    if user.is_staff:
+        allPatients = Patient.objects.all()
+    else:
+        allPatients = Patient.objects.filter(doctor__user__id=user.id)
     data = []
     for patient in allPatients:
         tempData = dict(PatientSerializer(patient).data)
