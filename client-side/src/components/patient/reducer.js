@@ -58,7 +58,6 @@ const reducer = (state = initalState, action) => {
             return {
                 ...state,
                 patients: [
-                    ...state.patients,
                     ...action.payload,
                 ]
             }

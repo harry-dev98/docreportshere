@@ -67,6 +67,7 @@ const getFetcher = (url, token) => {
 export default HOST;
 
 export {
+    API,
     postFetcher,
     getFetcher,
     putFetcher,

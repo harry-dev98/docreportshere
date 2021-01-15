@@ -17,7 +17,7 @@ class Patient extends Component{
         return (
             <div className="patient-container">
                 <List list={this.props.list} onClick={(data) => this.setState({activePatient: data})} />
-                <PatientData patient={this.state.activePatient} doctors={this.props.doctors} />
+                <PatientData token={this.props.token} patient={this.state.activePatient} doctors={this.props.doctors} />
             </div>
         );
     }

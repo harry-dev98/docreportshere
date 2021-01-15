@@ -2,6 +2,10 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import HOST from '../../service/config';
+import {
+    addScanAPI,
+    assignDoctorAPI,
+} from '../../service/api';
 
 import './Patient.css';
 
@@ -16,7 +20,7 @@ const List = ({ list, onClick }) => (
     </div>
 );
 
-const Details = ({ patient, doctors }) => {
+const Details = ({ token, patient, doctors }) => {
     const patientData = [
         ["Name", patient.name], 
         ["Age", patient.age],
@@ -24,14 +28,21 @@ const Details = ({ patient, doctors }) => {
         ["Cause", patient.cause]
     ]
     const [imgs, setImgs] = useState([]);
+    const [uploading, setUploading] = useState(false);
     const fileinput = useRef();
+    const selectDoc = useRef();
     const handleFileInputChange = () => {
         let files = [ ...fileinput.current.files ];
-        files = files.map((item)=>({ img: URL.createObjectURL(item), name: item.name}));
-        console.log(files);
         setImgs([...imgs, ...files]);
     };
-    console.log(doctors);
+    const uploadScans = () => {
+        setUploading(true);
+        addScanAPI(imgs, patient.id, token)
+        .then((array) => {
+            setUploading(false);
+            setImgs([]);
+        }).catch((error)=>console.log("error:", error));
+    }
     return (
         <div className="detail-container">
             <div className="detail-items">
@@ -46,11 +57,14 @@ const Details = ({ patient, doctors }) => {
                 {patient.isAssigned && <h5>This case is assigned to doctor {patient.doctor.name}.</h5>}
                 {!patient.isAssigned&&
                 <><h5>Assign Doctor to the case.</h5>
-                <select name="doc" id="assign-doc">
+                <select ref={selectDoc} name="doc" id="assign-doc" defaultValue="">
+                <option value="" > -- select -- </option>
                     {doctors.map((item, idx)=>(
                         <option key={idx} value={item.id}>{item.name}</option>
                     ))}
-                </select></>}
+                </select>
+                <i className="fa fa-check" onClick={()=>{assignDoctorAPI({doctor: selectDoc.current.value, patient: patient.id}, token)}}/>    
+                </>}
             </div>
             <div className="add-scan">
                 <h5>Upload Scans</h5>
@@ -58,15 +72,17 @@ const Details = ({ patient, doctors }) => {
                 <img className="logo-img" src="./img/plus.png" alt="add scans" onClick={()=>fileinput.current.click()} />
             </div>
             <div className="scan-upload">
-                {imgs.map((item, idx) => (
-                    <div className="scan" key={item.name+idx}>
+                {imgs.map((img, idx) => (
+                    <div className="scan" key={img.name+idx}>
                         <div className="scan-img">
-                            <img src={item.img}/>
-                            <i className="fa fa-times img-delete" />    
+                            <img src={URL.createObjectURL(img)}/>
+                            <i className="fa fa-times img-delete" onClick={()=>{setImgs(imgs.filter(_img=>_img!==img))}}/>    
                         </div>
                     </div>
                 ))}
             </div>
+            {imgs.length!==0 && <button className="upload-btn" onClick={uploadScans}>Upload</button>}
+            {uploading && <h5>Uploading</h5>}
         </div>
     );
 }
@@ -92,9 +108,9 @@ const Reports = ({ scans }) => {
     );
 };
 
-const PatientData = ({ patient, doctors }) => (
+const PatientData = ({ token, patient, doctors }) => (
     <>
-        <Details {...{patient, doctors}} />
+        <Details {...{token, patient, doctors}} />
         <Reports scans={patient.scans} />
     </>
 )

@@ -22,7 +22,7 @@ const reducer = ( state=initialState, action ) => {
         case SETDOCTORS:
             return {
                 ...state,
-                doctors: [...state.doctors, ...action.payload],
+                doctors: [...action.payload],
             };
         default:
             return state;

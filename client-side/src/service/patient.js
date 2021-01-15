@@ -1,4 +1,5 @@
 import {
+    API,
     postFetcher,
     getFetcher,
     putFetcher,
@@ -10,11 +11,24 @@ const addPatientAPI = (data, token)=>{
 
 const getPatientsAPI = (token) => getFetcher('getpatients/', token);
 
-const addScanAPI = (data, token) => {
-    return postFetcher('addscan/', data, token);
+const addScanAPI = (imgs, patient, token) => {
+    const date = new Date();
+    return Promise.all(imgs.map(async (img) => {
+        let data = new FormData();
+        data.append('src', img, img.name);
+        data.append('date', date.toDateString());
+        data.append('patient', patient);
+        return await fetch(API+'addscan/', {
+            method: 'POST',
+            body: data,
+            headers: {
+                Authorization: `Token ${token}`,
+            }
+        });
+    }));
 };
 
-const assignDoctorAPI = (data, token) => putFetcher('assigndoctor/', data, token);
+const assignDoctorAPI = (data, token) => postFetcher('assigndoctor/', data, token);
 
 export {
     addPatientAPI,

@@ -37,7 +37,7 @@ export default function Logout(){
             if(which === "login"){
                 loginAPI(form)
                 .then((data)=>{
-                    dispatch(login(data));
+                    dispatch(login({...data, is_hospital: form.is_hospital}));
                     history.push('/');
                 })
                 .catch((error) => {

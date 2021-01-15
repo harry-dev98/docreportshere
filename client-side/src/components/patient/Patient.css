@@ -84,3 +84,21 @@
 .scan {
     margin: 5px;
 }
+
+.upload-btn {
+    align-self: center;
+    width: 10vw;
+}
+
+.scan-img {
+    position: relative;
+}
+.img-delete {
+    position: absolute;
+    right: 5px;
+    font-size: x-large;
+ }
+
+ .assign {
+     align-items: center;
+ }

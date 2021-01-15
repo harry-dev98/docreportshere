@@ -32,7 +32,8 @@
     box-shadow: 0 2px 5px -1px #042F19;
 }
 .chat-list {
-    padding: 2px;
+    padding: 4px;
+    overflow: auto;
 }
 
 .chat-avatar {
@@ -77,4 +78,21 @@
 
 .chat-box {
     flex: 1;
+    height: 45vh;
+    overflow: auto;
+}
+.chat-box>div{
+    display: flex;
+}
+
+.msg-text {
+    width: 70%;
+    padding: 10px 5px;
+}
+
+.left-msg {
+    justify-content: flex-start;
+}
+.right-msg {
+    justify-content: flex-end;
 }

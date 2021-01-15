@@ -39,7 +39,7 @@ def uploadImg(instance, filename):
 
 class Scan(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='scans')
-    date = models.CharField(max_length=12)
+    date = models.CharField(max_length=20)
     src = models.FileField(upload_to=uploadImg)
     isReported = models.BooleanField(default=False)
     report = models.TextField(null=True, blank=True)

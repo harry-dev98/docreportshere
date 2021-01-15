@@ -34,4 +34,7 @@
     background-color: #EFEFEF;
     position: absolute;
     left: 63vw;
+    place-content: center;
+    place-items: center;
+    display: flex;
 }

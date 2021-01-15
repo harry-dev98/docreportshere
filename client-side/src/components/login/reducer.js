@@ -16,6 +16,7 @@ const userReducer = (state = initalUserState, action) => {
             return {
                 isLoggedIn: true,
                 token: action.payload.token,
+                is_hospital: action.payload.is_hospital,
             };
         case LOGOUT:
             return initalUserState;
