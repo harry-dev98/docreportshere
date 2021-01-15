@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useDebugValue, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './Nav.css';
 
 const Nav = (props) => {
     const [showNotif, setNotif] = useState(false); 
+    const history = useHistory();
+    const dispatch = useDispatch();
     const notifs = useSelector((state)=>state.chatState.notifications)
     const is_hospital = useSelector((state)=>state.userState.is_hospital);
     const isLoggedIn = useSelector((state)=>state.userState.isLoggedIn);

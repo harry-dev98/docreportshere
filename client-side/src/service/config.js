@@ -23,28 +23,6 @@ const postFetcher = (url, data, token) => {
     });
 };
 
-const putFetcher = (url, data, token) => {
-    let headers = {
-        "Content-Type": "application/json",
-    };
-    if(token){
-        headers = {
-            ...headers,
-            Authorization: `Token ${token}`,
-        };
-    }
-    return fetch(API+url, {
-        headers,
-        method: 'PUT',
-    }).then((response)=>{
-        if(!response.ok){
-            throw Error(response.statusText);
-        }
-        return response.json()
-    });
-};
-
-
 const getFetcher = (url, token) => {
     let headers = {
         "Content-Type": "application/json",
@@ -70,5 +48,4 @@ export {
     API,
     postFetcher,
     getFetcher,
-    putFetcher,
 };

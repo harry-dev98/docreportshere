@@ -7,7 +7,8 @@ import {
 
 import {
     loginAPI,
-    signupAPI
+    signupAPI,
+    lookUpLocalStorage,
 } from './login';
 
 import {
@@ -29,6 +30,7 @@ export {
     assignDoctorAPI,
     loginAPI, 
     signupAPI,
+    lookUpLocalStorage,
     addReportAPI,
     getDoctorsAPI,
     approveDoctorAPI,
