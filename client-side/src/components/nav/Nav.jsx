@@ -10,7 +10,9 @@ const Nav = (props) => {
             <div className="brand">
                 <div className="brand-logo"></div>
                 <div className="brand-name">
-                    <p className="nav-text">DocReportsHere</p>
+                    <Link style={{textDecoration: 'none'}} to="/">
+                        <p className="nav-text">DocReportsHere</p>
+                    </Link> 
                 </div>
             </div>
             <div className="nav-links">

@@ -6,6 +6,7 @@ import {
 
 const initalUserState = {
     isLoggedIn: false,
+    token: '',
     userData: {},
 };
 
@@ -14,7 +15,7 @@ const userReducer = (state = initalUserState, action) => {
         case LOGIN:
             return {
                 isLoggedIn: true,
-                userData: action.payload,
+                token: action.payload.token,
             };
         case LOGOUT:
             return initalUserState;

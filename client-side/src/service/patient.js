@@ -1,4 +1,4 @@
-import API, {
+import {
     postFetcher,
     getFetcher,
     putFetcher,

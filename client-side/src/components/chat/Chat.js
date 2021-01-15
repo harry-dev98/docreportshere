@@ -9,7 +9,6 @@ import {
 import { ChatList, ChatBox } from './ChatComponent';
 class Chat extends Component{
     render(){
-        
         return (
             <div className="chat-container">
                 <ChatList chatList={this.props.patientList} openChat={this.props.newChatBox} />

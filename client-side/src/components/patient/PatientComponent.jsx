@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import HOST from '../../service/config';
+
 import './Patient.css';
 
 const List = ({ list, onClick }) => (
@@ -8,7 +10,7 @@ const List = ({ list, onClick }) => (
         {list.map((item, idx) => (
             <div key={idx} className="list-row" onClick={(event)=>{event.stopPropagation(); onClick(item);}}>
                 <div className="list-heading bold-text">{item.name}</div>
-                <div className="list-info light-text">Cause: {item.domain.join(", ")}</div>
+                <div className="list-info light-text">Cause: {item.cause}</div>
             </div>
         ))}
     </div>
@@ -19,7 +21,7 @@ const Details = ({ patient, doctors }) => {
         ["Name", patient.name], 
         ["Age", patient.age],
         ["Sex", patient.gender],
-        ["Cause", patient.domain.join(", ")]
+        ["Cause", patient.cause]
     ]
     const [imgs, setImgs] = useState([]);
     const fileinput = useRef();
@@ -41,7 +43,7 @@ const Details = ({ patient, doctors }) => {
                 ))}
             </div>
             <div className="assign">
-                {patient.isAssigned && <h5>This case is assigned to doctor {patient.doctorData.name}.</h5>}
+                {patient.isAssigned && <h5>This case is assigned to doctor {patient.doctor.name}.</h5>}
                 {!patient.isAssigned&&
                 <><h5>Assign Doctor to the case.</h5>
                 <select name="doc" id="assign-doc">
@@ -77,7 +79,7 @@ const Reports = ({ scans }) => {
             {scans.map((item, idx) => (
                 <div className="scan" key={idx}>
                     <div className="scan-img">
-                        <img src={item.src}/>    
+                        <img src={HOST + item.src}/>    
                     </div>
                     <div className="scan-data">
                         <div className="light-text">Scanned on: {item.date}</div>

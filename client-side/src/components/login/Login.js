@@ -31,20 +31,8 @@ export default function Logout(){
 
     const dispatch = useDispatch();
     dispatch(logout());
-    useEffect((eff)=>{
-        console.log(eff);
-        if(!open && which !== ""){
-            setOpen(true);
-        }
-    }, [which, open]);
 
-    useEffect(() => {
-        if(!open){
-            setWhich("");
-        }
-    }, [open]);
-
-    const closePopup = ({submit, form}) => {
+    const closePopup = async ({submit, form}) => {
         if(submit){
             if(which === "login"){
                 loginAPI(form)
@@ -52,11 +40,9 @@ export default function Logout(){
                     dispatch(login(data));
                     history.push('/');
                 })
-                .catch((error)=>{
-                    console.log(error);
+                .catch((error) => {
                     dispatch(logout);
-                    setOpen(false);
-                })
+                });
             } else if(which === "register"){
                 signupAPI(form)
                 .then((data)=>{
@@ -66,18 +52,19 @@ export default function Logout(){
                     console.log(error);
                 });
             }            
+        } else {
+            setOpen(false);
         }
-        setOpen(false);
     }   
 
     const formPopup = (which)=>{
         if(which === "login"){
             setForm(loginForm);
-            setWhich("Login");
         } else {
             setForm(registrationForm);
-            setWhich("Registration");
         }
+        setWhich(which);
+        setOpen(true);
     }
 
     const list = [

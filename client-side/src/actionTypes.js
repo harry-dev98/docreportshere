@@ -7,9 +7,9 @@ const NEWCHAT = "chat/new";
 const DELCHAT = "chat/del";
 
 const CURRPATIENT = "patient/curr";
-const SETPATIENT = "patient/set";
+const SETPATIENTS = "patient/set";
 
-const SETDOCTOR = "doctor/set";
+const SETDOCTORS = "doctor/set";
 export {
     LOGIN,
     LOGOUT,
@@ -18,6 +18,6 @@ export {
     NEWCHAT,
     DELCHAT,
     CURRPATIENT,
-    SETPATIENT,
-    SETDOCTOR,
+    SETPATIENTS,
+    SETDOCTORS,
 }

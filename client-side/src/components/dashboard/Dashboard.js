@@ -1,32 +1,43 @@
-import React, { useState, } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector} from 'react-redux';
 
 import Chat from '../chat/Chat';
 import Card from '../common/Card';
 import Form from '../common/Form';
-import DashboardTag from './DashboardComponent';
+import DashboardTag from './DashboardComponent';    
+
 import {
     addPatientForm
 } from '../../utils/formdata';  
 
 import {
     addPatientAPI,
+    getPatientsAPI,
+    getDoctorsAPI,
 } from '../../service/api';
+
+import {
+    setPatients,
+    setDoctors,
+} from './action';
 
 const Dashboard = (props) => {
     const history = useHistory();
+    const dispatch = useDispatch();
+    const isLoggedIn = useSelector((state)=>state.userState.isLoggedIn);
+    const token = useSelector((state)=>state.userState.token)
     const [ open, setOpen ] = useState(false);
     const form = addPatientForm;
     const closePopup = ({ submit, form }) => {
         if(submit){
-            addPatientAPI(form)
+            addPatientAPI(form, token)
             .then((data)=> setOpen(false))
             .catch((error)=> console.log(error))
+        } else {
+            setOpen(false);
         }
-        setOpen(false);
     }
-    const isLoggedIn = useSelector((state)=>state.userState.isLoggedIn);
     if(!isLoggedIn)history.push('/login');
     const list = [
         {
@@ -38,16 +49,30 @@ const Dashboard = (props) => {
         {
             title: 'List of all cases',
             label: 'All Patients',
-            onclick: () => {},
+            onclick: () => {history.push('/patients')},
             haspopup: false,
         },
         {
             title: 'List of all doctors',
             label: 'All Doctors',
-            onclick: () => {},
+            onclick: () => {history.push('/doctors')},
             haspopup: false,
         }
     ];
+
+    useEffect(()=>{
+        getPatientsAPI(token)
+        .then((data)=>{
+            console.log("patient", data);
+            dispatch(setPatients(data));
+        })
+        .catch((error) => console.log(error));
+        getDoctorsAPI(token)
+        .then((data) => {
+            dispatch(setDoctors(data));
+        })
+        .catch((error) => console.log(error))
+    }, [])
     return (
         <>
             <Card list={list} />

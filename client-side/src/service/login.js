@@ -1,10 +1,10 @@
-import API, {
+import {
     postFetcher,
 } from './config';
 
-const loginAPI = ( data ) => postFetcher("login/", data, "");
+const loginAPI = ( data ) => postFetcher("login/", data);
 
-const signupAPI = ( data ) => postFetcher("signup/", data, "");
+const signupAPI = ( data ) => postFetcher("signup/", data);
 
 
 export {

@@ -10,6 +10,10 @@ class Patient extends Component{
         activePatient: this.props.list[0],
     }
     render(){
+        if(!this.props.isLoggedIn){
+            this.props.history.push("/login");
+            return null;
+        }
         return (
             <div className="patient-container">
                 <List list={this.props.list} onClick={(data) => this.setState({activePatient: data})} />
@@ -19,9 +23,11 @@ class Patient extends Component{
     }
 }
 
-const mapState = ( { patientState, doctorState } ) => ({
+const mapState = ( { userState, patientState, doctorState } ) => ({
     list: patientState.patients,
-    doctors: doctorState.doctors,
+    doctors: doctorState.doctors.filter((doctor)=>doctor.isApproved),
+    isLoggedIn: userState.isLoggedIn,
+    token: userState.token,
 });
 
 const mapDispatch = ( dispatch ) => ({
