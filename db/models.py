@@ -26,7 +26,7 @@ class Patient(models.Model):
     age = models.IntegerField()
     gender = models.CharField(max_length=6)
     cause = models.CharField(max_length=200)
-    isAssigned = models.BooleanField()
+    isAssigned = models.BooleanField(default=False)
     doctor = models.ForeignKey(Doctor, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
