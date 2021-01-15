@@ -1,7 +1,7 @@
-const APIHOST = "http://localhost:8000/api/";
+const API = "http://localhost:8000/api/";
 
-const postFetcher = (data, token) => {
-    return fetch(API+'addpatient/', {
+const postFetcher = (url, data, token) => {
+    return fetch(API+url, {
         body: JSON.stringify(data),
         headers: {
             Authorization: `Token ${token}`,
@@ -10,7 +10,27 @@ const postFetcher = (data, token) => {
     }).then((response)=>response.json());
 };
 
-export default APIHOST;
+const putFetcher = (url, data, token) => {
+    return fetch(API+url, {
+        headers: {
+            Authorization: `Token ${token}`,
+        },
+        method: 'PUT',
+    }).then((response)=>response.json());
+};
+
+
+const getFetcher = (url, token) => {
+    return fetch(API + url, {
+        headers: {
+            Authorization: `Token ${token}`,
+        },
+    }).then((response)=>response.json());
+}
+export default API;
+
 export {
     postFetcher,
+    getFetcher,
+    putFetcher,
 };
